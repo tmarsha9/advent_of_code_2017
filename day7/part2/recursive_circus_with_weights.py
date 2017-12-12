@@ -8,12 +8,6 @@ class Node:
     self.name = name
     self.weight = weight
 
-  def get_children(self):
-   return self.children
-
-  def add_child(self, child):
-    self.children.add(child)
-
 def find_root(graph):
   for n in graph:
     for child in graph[n].children:
@@ -79,7 +73,7 @@ with open("input.txt","r") as f:
 root = find_root(nodes)
 
 to_check = [root]
-while True:
+while len(to_check)>0:
   n = to_check[0]
   to_check = to_check[1:]
 
@@ -88,5 +82,6 @@ while True:
     for child in nodes[n].children:
       to_check.append(child)
   else:
-    print good[0]-bad[0]+nodes[bad[1]].weight
-    break
+    rv = good[0]-bad[0]+nodes[bad[1]].weight
+    to_check.append(bad[1])
+print rv
